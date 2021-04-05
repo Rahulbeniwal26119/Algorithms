@@ -1,7 +1,7 @@
 // this technique uses memoization and reduce the complexity from O(2**n) to O(2n+1) or O(n)
 public class fibMemoization 
 {
-        static int fib(int n, int[]memo)
+        static long  fib(int   n, long[]memo)
         {
                 if(memo[n] != 0)
                         return memo[n];
@@ -19,8 +19,8 @@ public class fibMemoization
 
         public static void main(String [] args)
         {
-                int n=8;
-                int memo[] = new int[n+1];
+                int  n=100;
+                long memo[] = new long[n+1];
                 System.out.println(fib(n , memo));
         }
 }

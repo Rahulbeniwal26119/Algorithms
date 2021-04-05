@@ -1,4 +1,4 @@
- interface Stack<E>
+interface Stack<E>
 {
         int size();
         boolean isEmpty();
