@@ -1,5 +1,5 @@
 
-public class KreskalAlgo {
+public class KruskalAlgo {
     static  int I=896349834;
     static int V = 7; // number of vertex in graph , answer has V-1 edges
     static int E = 9; // number of edges in given graph 
