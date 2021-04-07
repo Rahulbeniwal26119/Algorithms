@@ -1,7 +1,9 @@
 import java.util.Stack;
-class HTMLParser(String html)
+
+class HTMLParser
 {
-        Stack<String> buffer = new Stack<>();
+        public boolean htmlParser(String html) {
+        Stack<String> stack  = new Stack<>();
         int j = html.indexOf('<');
         while(j != -1)
         {
@@ -20,7 +22,8 @@ class HTMLParser(String html)
                 }
                 j = html.indexOf('<' , k+1);
         }
-        return buffer.isEmpty();
+        return stack.isEmpty();
+        }
 }
 
 
