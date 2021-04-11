@@ -12,6 +12,5 @@ public class BinaryRecursion
                         return binarySum(array, low, mid) + binarySum(array , mid+1 , high);
                 }
         }
-
 }
 
