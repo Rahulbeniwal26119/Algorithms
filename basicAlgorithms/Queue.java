@@ -7,39 +7,29 @@ public interface Queue<E>
         E first();
         E dequeue();
 }
-class ArrayQueue<E> implements Queue<E>
+public class ArrayQueue<E> implements Queue<E>
 {
         private E[] data;
-        private int f = 0; // index of the front element
-        private int sz= 0; // current number of element 
-        private static  final int CAPACITY = 1000;
-        
+        private int f =0;
+        private int size = 0;
+        final private static int CAPACITY = 1000;
 
-
-        public ArrayQueue(int capacity)
-        { data = (E [] ) new Object[capacity];}
-        
-        public ArrayQueue()
-        { this(CAPACITY);}
-
-        public int size()
-        {
-                return sz;
+        public ArrayQueue() {this(CAPACITY);}
+        public ArrayQuene(int size){
+                data = (E []) new Object[capacity];
         }
-        public boolean isEmpty()
+        public int size() { return sz;}
+        public boolean isEmpty() { return sz == 0;}
+        public void enqueue(E data) throws IllegalStateException
         {
-                return sz==0;
-        }
-        public void enqueue(E e) throws IllegalStateException 
-        {
-                if(sz == data.length) throw new IllegalStateException("Queue is full");
-                int avail = (f + sz) % data.length; // find the next empty space 
-                data[avail] = e;
+                if( sz == data.length) throw IllegalStateException("Quene is Empty");
+                int avail = (sz + f) % data.length;
+                data[avail] = data;
                 sz++;
         }
         public E first()
         {
-                if(isEmpty()) return null;
+                if(sz == 0) return null;
                 return data[f];
         }
         public E dequeue()
@@ -47,19 +37,12 @@ class ArrayQueue<E> implements Queue<E>
                 if(isEmpty()) return null;
                 E answer = data[f];
                 data[f] = null;
-                f = (f + 1) % data.length ;  // find the next first index 
+                f = (f + 1) % data.length;
                 sz--;
                 return answer;
         }
-        public static void main(String []args)
-        {
-                ArrayQueue<Integer> q = new ArrayQueue<>();
-                q.enqueue(10);
-                q.enqueue(100);
-                q.enqueue(1000);
-                System.out.println(q.first());
-                System.out.println(q.dequeue());
-                System.out.println(q.dequeue());
-                System.out.println(q.isEmpty());
-        }
 }
+
+
+
+        
