@@ -1,4 +1,4 @@
-public Interface List<E> 
+public interface List<E> 
 {
         int size();
         boolean isEmpty();
