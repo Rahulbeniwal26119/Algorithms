@@ -1,4 +1,5 @@
 class Node {
+
         int key;
         Node left, right;
 
@@ -41,6 +42,23 @@ class Node {
 
         Node getNode() {
                 return this;
+        }
+        int  height(Node root)
+        {
+               if(root == null)
+                        return -1;
+                else
+                {
+                        int leftHeight = height(root.getLeft());
+                        System.out.println("LeftHeight "+ leftHeight);
+                        int rightHeight = height(root.getRight());
+                        System.out.println("rightHeight " + rightHeight);
+                        if(leftHeight > rightHeight)
+                                return leftHeight + 1;
+                        else 
+                                return  rightHeight + 1;
+                }
+                
         }
 }
 
@@ -90,6 +108,7 @@ public class Tree {
                 Node right = root.setRight(11);
                 Node left1 = left.setLeft(12);
                 Node right1 = right.setRight(13);
+                right1.setRight(16);                                                                          
 
                 System.out.println("In order");
                 tree.LNR(root);
@@ -97,5 +116,6 @@ public class Tree {
                 tree.NLR(root);
                 System.out.println("Post order");
                 tree.LRN(root);
+                System.out.println("Height of Tree is " + root.height(root) );
         }
 }
