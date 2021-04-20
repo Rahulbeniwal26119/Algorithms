@@ -1,12 +1,22 @@
 class Node {
 
         int key;
+        Node parent;
         Node left, right;
 
-        Node(int item) {
+
+        Node(int item, Node Pred) {
                 key = item;
                 left = right = null;
+                parent = Pred;
         }
+
+
+        boolean isRoot()
+        {
+                return parent == null;
+        }
+
 
         void setLeft(Node newNode) {
                 left = newNode;
@@ -28,14 +38,14 @@ class Node {
                 return right;
         }
 
-        Node setLeft(int key) {
-                Node node = new Node(key);
+        Node setLeft(int key, Node Pred) {
+                Node node = new Node(key, Pred);
                 this.setLeft(node);
                 return node;
         }
 
-        Node setRight(int key) {
-                Node node = new Node(key);
+        Node setRight(int key, Node Pred) {
+                Node node = new Node(key, Pred);
                 this.setRight(node);
                 return node;
         }
@@ -50,9 +60,7 @@ class Node {
                 else
                 {
                         int leftHeight = height(root.getLeft());
-                        System.out.println("LeftHeight "+ leftHeight);
                         int rightHeight = height(root.getRight());
-                        System.out.println("rightHeight " + rightHeight);
                         if(leftHeight > rightHeight)
                                 return leftHeight + 1;
                         else 
@@ -66,7 +74,7 @@ public class Tree {
         Node root;
 
         Tree(int key) {
-                root = new Node(key);
+                root = new Node(key, null); // set pred to null
         }
 
         Tree() {
@@ -104,11 +112,11 @@ public class Tree {
         public static void main(String[] args) {
                 Tree tree = new Tree(5);
                 Node root = tree.getRoot();
-                Node left = root.setLeft(10);
-                Node right = root.setRight(11);
-                Node left1 = left.setLeft(12);
-                Node right1 = right.setRight(13);
-                right1.setRight(16);                                                                          
+                Node left = root.setLeft(10, root);
+                Node right = root.setRight(11, root);
+                Node left1 = left.setLeft(12, left);
+                Node right1 = right.setRight(13, left);
+                right1.setRight(16, right1);                                                                          
 
                 System.out.println("In order");
                 tree.LNR(root);
@@ -117,5 +125,7 @@ public class Tree {
                 System.out.println("Post order");
                 tree.LRN(root);
                 System.out.println("Height of Tree is " + root.height(root) );
+                System.out.print(left.isRoot());
+                System.out.print(root.isRoot());
         }
 }
