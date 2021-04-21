@@ -53,21 +53,10 @@ class Node {
         Node getNode() {
                 return this;
         }
-        int  height(Node root)
-        {
-               if(root == null)
-                        return -1;
-                else
-                {
-                        int leftHeight = height(root.getLeft());
-                        int rightHeight = height(root.getRight());
-                        if(leftHeight > rightHeight)
-                                return leftHeight + 1;
-                        else 
-                                return  rightHeight + 1;
-                }
-                
-        }
+
+        
+
+        
 }
 
 public class Tree {
@@ -109,6 +98,48 @@ public class Tree {
                 System.out.println(root.getKey());
         }
 
+        int  height(Node root)
+        {
+               if(root == null)
+                        return -1;
+                else
+                {
+                        int leftHeight = height(root.getLeft());
+                        int rightHeight = height(root.getRight());
+                        if(leftHeight > rightHeight)
+                                return leftHeight + 1;
+                        else 
+                                return  rightHeight + 1;
+                }
+                
+        }
+
+        int totalNodes(Node root)
+        {
+                if(root == null)
+                        return 0;
+                else 
+                        return totalNodes(root.getLeft()) + totalNodes(root.getRight()) + 1;
+        }
+
+        int totalExternalNode(Node root)
+        {
+                if(root == null)
+                        return 0;
+                else if( root.getLeft() == null && root.getRight() == null)
+                        return 1;
+                else 
+                        return totalExternalNode(root.getLeft()) + totalExternalNode(root.getRight());        
+        }
+
+        int totalNodes(Node root)
+        {
+                if(root == null)
+                        return 0;
+                else 
+                        return totalNodes(root.getLeft()) + totalNodes(root.getRight()) + 1;
+        }
+
         public static void main(String[] args) {
                 Tree tree = new Tree(5);
                 Node root = tree.getRoot();
@@ -124,8 +155,10 @@ public class Tree {
                 tree.NLR(root);
                 System.out.println("Post order");
                 tree.LRN(root);
-                System.out.println("Height of Tree is " + root.height(root) );
-                System.out.print(left.isRoot());
-                System.out.print(root.isRoot());
+                System.out.println("Height of Tree is " + tree.height(root) );
+                System.out.println(left.isRoot());
+                System.out.println(root.isRoot());
+                System.out.println(tree.totalNodes(root));
+                System.out.println(tree.totalExternalNode(root));
         }
 }
