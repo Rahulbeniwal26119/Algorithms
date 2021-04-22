@@ -51,7 +51,7 @@ class Node
             return true;
         else 
             return false;
-    }
+    }    
 }
 public class BST
 {
@@ -110,6 +110,33 @@ public class BST
         }
     }
 
+    int findSmallestElement(Node root)
+    {
+        if(root == null || root.getLeft() == null)
+            return root.getValue();
+        else 
+            return findSmallestElement(root.getLeft());
+    }
+
+    int findLargestElement(Node root)
+    {
+        if(root == null || root.getRight() == null)
+            return root.getValue();
+        else
+            return findLargestElement(root.getRight());
+    }
+
+    int totalNodes(Node root)
+    {
+        if(root == null)
+            return 0;
+        else 
+            return totalNodes(root.getLeft()) + totalNodes(root.getRight()) + 1;
+    }
+
+
+
+
     public static void main(String[] args) {
         BST tree = new BST(10);
         Node root = tree.getRoot();
@@ -117,7 +144,8 @@ public class BST
         tree.addElement(48);
         tree.addElement(9);
         tree.addElement(12);
-        // tree.addElement(12);
-        tree.midOrderTraversal(root);
+        tree.addElement(110);
+        tree.addElement(0);
+        tree.addElement(75);
     }
 }
