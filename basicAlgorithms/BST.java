@@ -62,13 +62,13 @@ public class BST {
         return root;
     }
 
-    private Node createRoot(int data) {
+    private Node createNode(int data) {
         Node node = new Node(data, null, null, null);
         return node;
     }
 
     public void addElement(int data) throws IllegalArgumentException {
-        Node newNode = createRoot(data);
+        Node newNode = createNode(data);
         Node parent = null;
         Node tempRoot = root;
         while (tempRoot != null) {
@@ -88,15 +88,17 @@ public class BST {
             throw new IllegalArgumentException("Binary Tree cannot have duplicate value");
     }
 
-    void midOrderTraversal(Node root) {
+    void inOrderTraversal(Node root) {
         if (root == null)
             return;
         else {
-            midOrderTraversal(root.getLeft());
+            inOrderTraversal(root.getLeft());
             System.out.println(root.getValue());
-            midOrderTraversal(root.getRight());
+            inOrderTraversal(root.getRight());
         }
     }
+
+    // check Tree.java for pre and post order as NLR , LRN
 
     int findSmallestElement(Node root) {
         if (root == null || root.getLeft() == null)
@@ -149,6 +151,35 @@ public class BST {
             return totalInternalNodes(root.getLeft()) + totalInternalNodes(root.getRight()) + 1;
     }
 
+    int height(Node root)
+    {
+        if(root == null)
+            return -1;
+        else 
+        {
+            int leftHeight = height(root.getLeft());
+            int rightHeight = height(root.getRight());
+            if(leftHeight > rightHeight)
+                return leftHeight+1;
+            else
+                return  rightHeight+1;
+
+        }
+    }
+
+    void mirrorImage(Node root)
+    {
+        if(root != null)
+        {
+            mirrorImage(root.getLeft());
+            mirrorImage(root.getRight());
+            Node temp;
+            temp = root.getLeft();
+            root.setLeft(root.getRight());
+            root.setRight(temp);
+        }
+    }
+
     public static void main(String[] args) {
         BST tree = new BST(10);
         Node root = tree.getRoot();
@@ -159,6 +190,14 @@ public class BST {
         tree.addElement(110);
         tree.addElement(0);
         tree.addElement(75);
-        System.out.println(tree.totalInternalNodes(root));
+        tree.addElement(74);
+        tree.inOrderTraversal(root);
+        tree.mirrorImage(root);
+        tree.inOrderTraversal(root); 
+        // inorder traversal gives the values in sorted order 
+        // so to check if it mirror image or not 
+        // i implement inOrderTraversal before and after mirroring them 
+        // if result is increasing sorted list is first and decreasing sorted in leading then 
+        // it is justification for this.
     }
 }
