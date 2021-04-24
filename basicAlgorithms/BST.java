@@ -180,6 +180,16 @@ public class BST {
         }
     }
 
+    int depth(Node node)
+    {
+        if(node.getParent() == null)
+           return  0;
+        else
+            return  depth(node.getParent()) + 1;
+    }
+
+    //delete node will come here 
+
     public static void main(String[] args) {
         BST tree = new BST(10);
         Node root = tree.getRoot();
@@ -191,12 +201,10 @@ public class BST {
         tree.addElement(0);
         tree.addElement(75);
         tree.addElement(74);
-        tree.inOrderTraversal(root);
-        tree.mirrorImage(root);
-        tree.inOrderTraversal(root); 
+
         // inorder traversal gives the values in sorted order 
-        // so to check if it mirror image or not 
-        // i implement inOrderTraversal before and after mirroring them 
+        // so to check if  mirror image is correct or not 
+        // implement inOrderTraversal before and after mirroring tree  
         // if result is increasing sorted list is first and decreasing sorted in leading then 
         // it is justification for this.
     }

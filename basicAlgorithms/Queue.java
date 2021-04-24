@@ -30,6 +30,7 @@ public class ArrayQueue<E> implements Queue<E>
         public E first()
         {
                 if(sz == 0) return null;
+                StringBuffer c = new StringBuffer("String");
                 return data[f];
         }
         public E dequeue()

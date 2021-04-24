@@ -21,11 +21,6 @@ void quickSort(int arr[], int left, int right)
             swap(arr, ++end, i);
     }
     swap(arr, left, end);
-    for (int i = 0; i < 4; i++)
-    {
-        cout << arr[i] << "\t";
-    }
-    cout << endl;
     quickSort(arr, left, end - 1);
     quickSort(arr, end + 1, right);
 }
