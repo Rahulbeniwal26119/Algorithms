@@ -151,6 +151,77 @@ public class BST {
             return totalInternalNodes(root.getLeft()) + totalInternalNodes(root.getRight()) + 1;
     }
 
+    void   deleteNode(Node root, int val) throws IllegalArgumentException
+    {
+        Node tempNode = search(root, val);
+        if(tempNode.getLeft() == null && tempNode.getRight() == null)
+            {
+                Node parent = tempNode.getParent();
+                if(parent.getLeft().getValue() == tempNode.getValue())
+                    parent.setLeft(null);
+                else 
+                    parent.setRight(null);
+            }
+        else if(tempNode.getRight() != null && tempNode.getLeft() != null)
+        {
+            while (tempNode.getRight() != null)
+            {
+                Node tempRightNode = tempNode.getRight();
+                tempNode.setData(tempRightNode.getValue());
+                tempNode = tempNode.getRight();
+            }
+            Node parent = tempNode.getParent();
+            parent.setRight(null);
+        }
+        else if(tempNode.getRight() != null || tempNode.getLeft() != null)
+        {
+            if(tempNode.getLeft() == null)
+            {
+                Node tempRightNode = tempNode.getRight();
+                tempNode.setData(tempRightNode.getValue());
+                if(tempRightNode.getRight() != null)
+                {
+                    tempRightNode.getRight().setParent(tempNode);
+                    tempNode.setRight(tempRightNode.getRight());
+                }
+                if(tempRightNode.getLeft() != null)
+                {
+                    tempRightNode.getLeft().setParent(tempNode);
+                    tempNode.setLeft(tempRightNode.getLeft());
+                }
+                tempRightNode.setLeft(null);     
+                tempRightNode.setRight(null); 
+
+            }
+            else 
+            {
+                Node tempLeftNode = tempNode.getLeft();
+                tempNode.setData(tempLeftNode.getValue());
+                if(tempLeftNode.getRight() != null)
+                {
+                    tempLeftNode.getRight().setParent(tempNode);
+                    tempNode.setRight(tempLeftNode.getRight());
+                }
+                if(tempLeftNode.getLeft() != null)
+                {
+                    tempLeftNode.getLeft().setParent(tempNode);
+                    tempNode.setLeft(tempLeftNode.getLeft());
+                }
+                if(tempLeftNode.getRight() == null && tempLeftNode.getRight() == null)
+                {
+                    tempLeftNode.getParent().setLeft(null);
+                    return ;
+                }
+                // tempLeftNode.setLeft(null);     
+                // tempLeftNode.setRight(null);
+            }
+        }
+        else 
+        {
+            throw new  IllegalArgumentException("This node is present in bst");
+        }
+    }
+
     int height(Node root)
     {
         if(root == null)
@@ -199,8 +270,14 @@ public class BST {
         tree.addElement(12);
         tree.addElement(110);
         tree.addElement(0);
-        tree.addElement(75);
+        tree.addElement(78);
+        tree.addElement(76);
         tree.addElement(74);
+        tree.addElement(112);
+        tree.inOrderTraversal(root);
+        tree.deleteNode(root, 78);
+        tree.inOrderTraversal(root);
+
 
         // inorder traversal gives the values in sorted order 
         // so to check if  mirror image is correct or not 
