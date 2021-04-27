@@ -236,7 +236,7 @@ public class BST {
     int height(Node root)
     {
         if(root == null)
-            return -1;
+            return -1; // assuming height of binary tree start from zero 
         else 
         {
             int leftHeight = height(root.getLeft());
