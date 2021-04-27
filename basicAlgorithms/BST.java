@@ -78,6 +78,13 @@ public class BST {
             else
                 tempRoot = tempRoot.getRight();
         }
+        if(parent == null)
+        {
+                root = new Node(data, null, null, null);  // if root node is null 
+                root.setLeft(null);
+                root.setRight(null);
+                return ;
+        }
         if (data < parent.getValue()) {
             newNode.setParent(parent);
             parent.setLeft(newNode);
@@ -157,7 +164,9 @@ public class BST {
         if(tempNode.getLeft() == null && tempNode.getRight() == null)
             {
                 Node parent = tempNode.getParent();
-                if(parent.getLeft().getValue() == tempNode.getValue())
+                if(parent == null)
+                        root = null;
+                else if(parent.getLeft().getValue() == tempNode.getValue())
                     parent.setLeft(null);
                 else 
                     parent.setRight(null);
@@ -184,13 +193,15 @@ public class BST {
                     tempRightNode.getRight().setParent(tempNode);
                     tempNode.setRight(tempRightNode.getRight());
                 }
-                if(tempRightNode.getLeft() != null)
+                else if(tempRightNode.getLeft() != null)
                 {
                     tempRightNode.getLeft().setParent(tempNode);
-                    tempNode.setLeft(tempRightNode.getLeft());
+                    tempNode.setRight(tempRightNode.getLeft());
                 }
-                tempRightNode.setLeft(null);     
-                tempRightNode.setRight(null); 
+                else 
+                {
+                        deleteNode(tempRightNode, tempRightNode.getValue());
+                }
 
             }
             else 
@@ -200,7 +211,7 @@ public class BST {
                 if(tempLeftNode.getRight() != null)
                 {
                     tempLeftNode.getRight().setParent(tempNode);
-                    tempNode.setRight(tempLeftNode.getRight());
+                    tempNode.setLeft(tempLeftNode.getRight());
                 }
                 if(tempLeftNode.getLeft() != null)
                 {
@@ -210,7 +221,7 @@ public class BST {
                 if(tempLeftNode.getRight() == null && tempLeftNode.getRight() == null)
                 {
                     tempLeftNode.getParent().setLeft(null);
-                    return ;
+                    deleteNode(tempLeftNode, tempLeftNode.getValue());
                 }
                 // tempLeftNode.setLeft(null);     
                 // tempLeftNode.setRight(null);
