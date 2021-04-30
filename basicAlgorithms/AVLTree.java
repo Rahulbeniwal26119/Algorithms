@@ -1,101 +1,106 @@
 class Node
 {
-	int key, height;
-	Node left, right;
+        int key, height;
+        Node left, right;
 
-	Node(int d)
-	{
-		key = d;
-		height  = 1;
-	}
+        Node(int d)
+        {
+                key = d;
+                height = 1;
+        }
 }
 
-class AVLTree
+public class AVLTree
 {
-	Node root;
+        Node root;
 
-	int height(Node n)
-	{
-	
-            if(n==null)
-			return 0;
-		return n.height;
-	}
+        int height(Node n)
+        {
+                return n == null ? 0 : n.height;
+        }
 
-	int max(int a, int b)
-	{
-		return (a > b) ? a : b;
-	}
+        int max(int a, int b)
+        {
+                return a > b ? a : b;
+        }
 
-	Node rightRotate(Node y)
-	{
-		Node x = y.left;
-		Node T2 = x.right;
+        Node rightRotate(Node unbalanced)  // LL rotation case balance factor is > 1
+        {
+                Node left = unbalanced.left;
+                Node rightChildOfLeft = left.right;
 
-		x.right = y;
-		y.left = T2;
+                //perform rotation 
+                left.right = unbalanced;
+                unbalanced.left = rightChildOfLeft;
 
-		y.height = max(height(y.left), height(y.right)) + 1;
-		x.height = max(height(y.left), height(x.right)) + 1;
+                unbalanced.height = max(height(unbalanced.left, unbalanced.right)) + 1;
+                //Now left node is balanced so
+                Node balanced = left; 
+                balanced.height = max(height(balanced.left, balanced.right));
 
-	
-        return x; 
-	}
+                return balanced;
+        }
 
-	Node leftRotate(Node y)
-	{
-		Node x = y.right;
-		Node T2 = x.left;
+        Node leftRotate(Node unbalanced) // RR rotation case balance factor is < -1
+        {
+                Node right = unbalanced.right;
+                Node leftChildOfRight = right.left;
 
-		x.left  = y;
-		y.right = T2;
+                // perform the rotation 
 
-		x.height = max(height(x.left), height(x.right)) + 1;
-		y.height = max(height(y.left), height(y.right)) + 1;
+                right.left = unbalanced;
+                unbalanced.right = leftChildOfRight;
 
-		
-        return y;
-	}
+                unbalanced.height = max(height(unbalanced.left, unbalanced.right));
+                // right makes the tree balanced
+                Node balanced = right;
+                balanced.height = max(height(balanced.left, balanced.right));
 
-	int getBalance(Node n)
-	{
-		
-            if(n == null)
-		 return 0;
+                return unbalanced;
+        }
 
-		return height(n.left) - height(n.right);
-	}
+        int getBalance(Node n)
+        {
+                n == null ? 0 : height(n.left) - height(n.right);
+        }
 
-	Node insert(Node node, int key)
-	{
-		if(node == null)
-			return (new Node(key));
-		if(key < node.key)
-			node.left = insert(node.left, key);
-		else if(key > node.key)
-			node.right = insert(node.right, key);
-		else 
-			return node;
-	node.height = 1 + max(height(node.left), height(node.right));
+        Node insert(Node root, int key)
+        {
+                if(root == null) // root may be of sub tree or whole tree
+                        return new Node(key);
+                if(key < root.key)
+                        node.left = insert(root.left , key);
+                else if(key > root.key)
+                        node.right = insert(root.right, key);
+                else 
+                        return root;
 
-	int balance = getBalance(node);
+                root.height = 1 + max(height(root.left) , height(root.right));
 
-	if(balance > 1 && key < node.left.key)
-		return rightRotate(node); 
-	if(balance < -1 && key > node.right.key)
-		return leftRotate(node);
-	if(balance >1 && key > node.left.key)
-	{
-		node.left = leftRotate(node.left);
-		return rightRotate(node);
-	}
-	if(balance > -1 && key < node.right.key)
-	{
-		node.right = rightRotate(node.right);
-		return leftRotate(node);
-	}
+                int balance = getBalance(root);
 
-	return node;
-    }
+                if(balance > 1 && key < root.left.key)
+                        return rightRotate(root);
+                if(balance < -1 && key > root.right.key)
+                        return leftRotate(root);
+                if(balance > 1 && key > root.left.key)
+                {
+                        root.left = leftRotate(root.left)
+                                return rightRotate(root);
+                }
+                if(balance < -1 && key < root.right.key)
+                {
+                        root.right = rightRotate(node.right);
+                        return leftRotate(root);
+                }
+
+                return node;
+        }
 }
+
+
+
+
+
+
 
