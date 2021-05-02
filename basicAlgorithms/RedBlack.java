@@ -1,5 +1,7 @@
 import java.util.Stack;
 
+import org.graalvm.compiler.graph.spi.Canonicalizable.Unary;
+
 class Node
 {
     int data;
@@ -101,5 +103,23 @@ public class RedBlack {
             printGivenLevel(root.left, level - 1);
             printGivenLevel(root.right,level - 1);
         }
+    }
+
+    void rotateLeft(Node unbalanceNode)
+    {
+        Node right = unbalanceNode.right;
+        Node leftChildOfRight = left.right;
+
+        right.left = unbalanceNode;
+        unbalanceNode.right = leftChildOfRight;
+    }
+
+    void rotateRight(Node unbalanceNode)
+    {
+        left = unbalanceNode.left;
+        Node rightChildOfLeft = left.right;
+
+        left.right = unbalanceNode;
+        unbalanceNode.left = rightChildOfRight;
     }
 }
