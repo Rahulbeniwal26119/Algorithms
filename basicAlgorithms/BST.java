@@ -162,9 +162,35 @@ public class BST {
             return totalInternalNodes(root.getLeft()) + totalInternalNodes(root.getRight()) + 1;
     }
 
+    static Node leftMostNode(Node node)
+    {
+    	while(node != null && node.left != null)
+		node = node.left;
+	return node;
+    }
+	
+    static Node rightMostNode(Node node)
+    {
+    	while(node != null  && node.right != null)
+		node = node.right;
+	return node;
+    }
+    
+
+    Node getInOrderSuccessor(Node root)
+    {
+     	//case 1 : if right child of node is not null
+    	if(root.right != null)
+	{
+		return leftMostNode(root.right);
+	}
+    }
+
     void   deleteNode(Node root, int val) throws IllegalArgumentException
     {
         Node tempNode = search(root, val);
+	if(tempNode == null)
+		return;
         if(tempNode.getLeft() == null && tempNode.getRight() == null)
             {
                 Node parent = tempNode.getParent();
@@ -177,14 +203,11 @@ public class BST {
             }
         else if(tempNode.getRight() != null && tempNode.getLeft() != null)
         {
-            while (tempNode.getRight() != null)
-            {
-                Node tempRightNode = tempNode.getRight();
-                tempNode.setData(tempRightNode.getValue());
-                tempNode = tempNode.getRight();
-            }
-            Node parent = tempNode.getParent();
-            parent.setRight(null);
+                Node succ = getInOrderSucc(tempNode);
+		int temp = succ.getValue();
+                tempNode.setData(succ.getValue());
+		deleteNode(tempNode.left, temp);
+		deleteNode(tempNode.right, temp);
         }
         else if(tempNode.getRight() != null || tempNode.getLeft() != null)
         {
@@ -227,13 +250,7 @@ public class BST {
                     tempLeftNode.getParent().setLeft(null);
                     deleteNode(tempLeftNode, tempLeftNode.getValue());
                 }
-                // tempLeftNode.setLeft(null);     
-                // tempLeftNode.setRight(null);
             }
-        }
-        else 
-        {
-            throw new  IllegalArgumentException("This node is present in bst");
         }
     }
 
