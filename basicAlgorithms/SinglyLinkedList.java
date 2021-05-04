@@ -130,6 +130,24 @@ class SinglyLinkedList<E>
 		}
 		return false;
 	}
+	public int checkMergePoint(Node<E> head1, Node<E> head2)
+	{
+		Node<E> heada = head1;
+		Node<E> headb = head2;
+
+		while(heada != headb)
+		{
+			if(heada.next == null)
+				heada = head2;
+			else 
+				heada = heada.getNext();
+			if(headb.next == null)
+				headb = head1;
+			else 	
+				headb = headb.getNext();
+		}
+		return headb.getData();
+	}
 		
 
 }
