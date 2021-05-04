@@ -72,4 +72,64 @@ class SinglyLinkedList<E>
                          tail = null;
                 return answer;
         }
+	public Node<E> reverse(Node<E> head)
+	{
+		if(head == null || head.getNext() == null)
+			return head;
+		Node<E> remaining = reverse(head.getNext());
+		head.getNext().getNext().setnext(head);
+		head.getNext().setNext(null);
+		return remaining;
+	}
+	int getElementAfterFromEnd(Node<E> head, int position)
+	{
+		Node<E> currPtr = result = head;
+		int i=0;
+		while(currPtr != null)
+		{
+			currPtr = currPtr.next;
+			if( i++ > position)
+			{
+				result = result.getNext();
+			}
+		}
+		return result.data;
+	}
+	public Node<E> removeDuplicates(Node<E> head)
+	{
+			Node<E> tempNode = null;
+			Node<E> tempHead = head;
+			tempNode = head;
+			while(head.getNext() != null)
+			{
+				head = head.getNext();
+				if(tempNode.getData() == head.getData())
+				{
+					tempNode.setNext(head.getNext());
+				}
+				else 
+				{	
+					tempNode = tempNode.getNext();
+				}
+			}
+			return tempNode;
+	}
+	// floyd cycle algorithm 
+	public boolean checkCycle(Node<E> head)
+	{
+		if(head == null) return null;
+		Node<E> slow = head;
+		Node<E> fast = head;
+
+		while(slow != null && fast != null && fast.getNext() != null)
+		{
+			slow = slow.getNext();
+			fast = fast.getNext().getNext();
+			if(slow == fast)
+				return true;
+		}
+		return false;
+	}
+		
+
 }
