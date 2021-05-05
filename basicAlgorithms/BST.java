@@ -78,12 +78,11 @@ public class BST {
             else
                 tempRoot = tempRoot.getRight();
         }
-        if(parent == null)
-        {
-                root = new Node(data, null, null, null);  // if root node is null 
-                root.setLeft(null);
-                root.setRight(null);
-                return ;
+        if (parent == null) {
+            root = new Node(data, null, null, null); // if root node is null
+            root.setLeft(null);
+            root.setRight(null);
+            return;
         }
         if (data < parent.getValue()) {
             newNode.setParent(parent);
@@ -99,13 +98,13 @@ public class BST {
         if (root == null)
             return;
         else {
-	    if(root.getLeft() != null)
-            inOrderTraversal(root.getLeft());
+            if (root.getLeft() != null)
+                inOrderTraversal(root.getLeft());
 
             System.out.println(root.getValue());
-	    if(root.getRight() !=null)
-            inOrderTraversal(root.getRight());
-	    // these ifs will reduce the function call to half for a complete binary tree
+            if (root.getRight() != null)
+                inOrderTraversal(root.getRight());
+            // these ifs will reduce the function call to half for a complete binary tree
         }
     }
 
@@ -162,91 +161,79 @@ public class BST {
             return totalInternalNodes(root.getLeft()) + totalInternalNodes(root.getRight()) + 1;
     }
 
-    static Node leftMostNode(Node node)
-    {
-    	while(node != null && node.left != null)
-		node = node.left;
-	return node;
-    }
-	
-    static Node rightMostNode(Node node)
-    {
-    	while(node != null  && node.right != null)
-		node = node.right;
-	return node;
-    }
-    
-
-    Node getInOrderSuccessor(Node root)
-    {
-     	//case 1 : if right child of node is not null
-    	if(root.right != null)
-	{
-		return leftMostNode(root.right);
-	}
+    static Node leftMostNode(Node node) {
+        while (node != null && node.left != null)
+            node = node.left;
+        return node;
     }
 
-    void   deleteNode(Node root, int val) throws IllegalArgumentException
-    {
-        Node tempNode = search(root, val);
-	if(tempNode == null)
-		return;
-        if(tempNode.getLeft() == null && tempNode.getRight() == null)
-            {
-                Node parent = tempNode.getParent();
-                if(parent == null)
-                        root = null;
-                else if(parent.getLeft().getValue() == tempNode.getValue())
-                    parent.setLeft(null);
-                else 
-                    parent.setRight(null);
-            }
-        else if(tempNode.getRight() != null && tempNode.getLeft() != null)
-        {
-                Node succ = getInOrderSucc(tempNode);
-		int temp = succ.getValue();
-                tempNode.setData(succ.getValue());
-		deleteNode(tempNode.left, temp);
-		deleteNode(tempNode.right, temp);
+    static Node rightMostNode(Node node) {
+        while (node != null && node.right != null)
+            node = node.right;
+        return node;
+    }
+
+    Node getInOrderSuccessor(Node node, Node root) {
+        // case 1 : if right child of node is not null
+        if (node.right != null) {
+            return leftMostNode(node.right);
         }
-        else if(tempNode.getRight() != null || tempNode.getLeft() != null)
+
+        //case 2 : if right child is null
+        if(node.right == null)
         {
-            if(tempNode.getLeft() == null)
-            {
+            Node rightMostNode = rightMostNode(root);
+            if(node == rightMostNode)
+                return null;
+            else 
+                return findInorderRecursive(root, x);
+        }
+    }
+
+    void deleteNode(Node root, int val) throws IllegalArgumentException {
+        Node tempNode = search(root, val);
+        if (tempNode == null)
+            return;
+        if (tempNode.getLeft() == null && tempNode.getRight() == null) {
+            Node parent = tempNode.getParent();
+            if (parent == null)
+                root = null;
+            else if (parent.getLeft().getValue() == tempNode.getValue())
+                parent.setLeft(null);
+            else
+                parent.setRight(null);
+        } else if (tempNode.getRight() != null && tempNode.getLeft() != null) {
+            Node succ = getInOrderSucc(tempNode);
+            int temp = succ.getValue();
+            tempNode.setData(succ.getValue());
+            deleteNode(tempNode.left, temp);
+            deleteNode(tempNode.right, temp);
+        } else if (tempNode.getRight() != null || tempNode.getLeft() != null) {
+            if (tempNode.getLeft() == null) {
                 Node tempRightNode = tempNode.getRight();
                 tempNode.setData(tempRightNode.getValue());
-                if(tempRightNode.getRight() != null)
-                {
+                if (tempRightNode.getRight() != null) {
                     tempRightNode.getRight().setParent(tempNode);
                     tempNode.setRight(tempRightNode.getRight());
-                }
-                else if(tempRightNode.getLeft() != null)
-                {
+                } else if (tempRightNode.getLeft() != null) {
                     tempRightNode.getLeft().setParent(tempNode);
                     tempNode.setRight(tempRightNode.getLeft());
-                }
-                else 
-                {
-                        deleteNode(tempRightNode, tempRightNode.getValue());
+                } else {
+                    deleteNode(tempRightNode, tempRightNode.getValue());
                 }
 
-            }
-            else 
-            {
+            } else {
                 Node tempLeftNode = tempNode.getLeft();
                 tempNode.setData(tempLeftNode.getValue());
-                if(tempLeftNode.getRight() != null)
-                {
+                if (tempLeftNode.getRight() != null) {
                     tempLeftNode.getRight().setParent(tempNode);
                     tempNode.setLeft(tempLeftNode.getRight());
                 }
-                if(tempLeftNode.getLeft() != null)
-                {
+                if (tempLeftNode.getLeft() != null) {
                     tempLeftNode.getLeft().setParent(tempNode);
                     tempNode.setLeft(tempLeftNode.getLeft());
                 }
-                if(tempLeftNode.getRight() == null && tempLeftNode.getRight() == null)
-                {
+                if (tempLeftNode.getRight() == null && tempLeftNode.getRight() == null) {
                     tempLeftNode.getParent().setLeft(null);
                     deleteNode(tempLeftNode, tempLeftNode.getValue());
                 }
@@ -254,26 +241,42 @@ public class BST {
         }
     }
 
-    int height(Node root)
-    {
-        if(root == null)
-            return -1; // assuming height of binary tree start from zero 
-        else 
-        {
+    int height(Node root) {
+        if (root == null)
+            return -1; // assuming height of binary tree start from zero
+        else {
             int leftHeight = height(root.getLeft());
             int rightHeight = height(root.getRight());
-            if(leftHeight > rightHeight)
-                return leftHeight+1;
+            if (leftHeight > rightHeight)
+                return leftHeight + 1;
             else
-                return  rightHeight+1;
+                return rightHeight + 1;
 
         }
     }
 
-    void mirrorImage(Node root)
+    static Node temp = new Node();
+
+    Node findInorderRecursive(Node root, Node x)
     {
-        if(root != null)
+        Node temp;
+        if(root == null)
+            return null;
+        if(root == x || (temp = findInorderRecursive(root.left, x)) !=null || 
+        (temp = findInorderRecursive(root.right, x))!=null )
         {
+            if(temp != null)
+                {
+                    if(root.left == temp)
+                    {
+                        return root;
+                    }
+                }
+        }
+    }
+
+    void mirrorImage(Node root) {
+        if (root != null) {
             mirrorImage(root.getLeft());
             mirrorImage(root.getRight());
             Node temp;
@@ -283,15 +286,14 @@ public class BST {
         }
     }
 
-    int depth(Node node)
-    {
-        if(node.getParent() == null)
-           return  0;
+    int depth(Node node) {
+        if (node.getParent() == null)
+            return 0;
         else
-            return  depth(node.getParent()) + 1;
+            return depth(node.getParent()) + 1;
     }
 
-    //delete node will come here 
+    // delete node will come here
 
     public static void main(String[] args) {
         BST tree = new BST(10);
@@ -310,11 +312,11 @@ public class BST {
         tree.deleteNode(root, 78);
         tree.inOrderTraversal(root);
 
-
-        // inorder traversal gives the values in sorted order 
-        // so to check if  mirror image is correct or not 
-        // implement inOrderTraversal before and after mirroring tree  
-        // if result is increasing sorted list is first and decreasing sorted in leading then 
+        // inorder traversal gives the values in sorted order
+        // so to check if mirror image is correct or not
+        // implement inOrderTraversal before and after mirroring tree
+        // if result is increasing sorted list is first and decreasing sorted in leading
+        // then
         // it is justification for this.
     }
 }
