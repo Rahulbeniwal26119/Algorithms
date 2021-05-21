@@ -10,6 +10,8 @@ public class LinearProbing
 			return hashval % HASHSIZE;
 		}
 
+		
+
 		int probe(String key)
 		{
 				int index = hash(key);

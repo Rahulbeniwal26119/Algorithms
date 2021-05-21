@@ -9,7 +9,7 @@ class HTMLParser
         {
                 int k = html.indexOf(j+1 , '>');
                 if(k == -1)
-                        return false;
+                        return false; 
                 String tag = html.substring(j+1 , k);
                 if(!tag.startsWith("/"))
                         stack.push(tag);
