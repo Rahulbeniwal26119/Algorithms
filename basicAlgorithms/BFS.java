@@ -1,100 +1,55 @@
-class Quene {
-    int SIZE = 7;
-    int items[] = new int[7];
-    int front, rear;
+import java.io.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
-    Quene() {
-        front = rear = -1;
-    }
+class Graph{
+	private int V;
+	private LinkedList<Integer> adj[];
 
-   public  boolean isFull() {
-        if (front == 0 && rear == SIZE - 1)
-            return true;
-        return false;
-    }
+	@SuppressWarnings("unchecked") Graph(int v){
+		V = v;
+		adj = new LinkedList[v];
 
-    public boolean isEmpty() {
-        if (front == rear && front == -1) {
-            return true;
-        }
-        return false;
-    }
+		for(int i = 0; i<v; i++)
+			adj[i] = new LinkedList<Integer>();
+	}
 
-    public void enQuene(int val) {
-        if (isFull())
-            System.out.println("Quene is full");
-        else {
-            if (isEmpty()) {
-                front = 0;
-            }
-            rear++;
-            items[rear] = val;
-            System.out.println("Insert" + val);
-        }
-    }
+	void addEdge(int v, int w){
+		adj[v].add(w);
+	}
 
-    public int deQuene() {
-        int element;
-        if (isEmpty()) {
-            System.out.println("Quene is Empty");
-            return -1;
-        } else {
-            element = items[front];
-            if (front == rear) {
-                front = rear = -1;
-            } else {
-                ++front;
-            }
-        }
-        return element;
-    }
+	void BFS(int s){
+		boolean visited[] = new boolean[V];
 
-    public void display() {
-        int i;
-        if (isEmpty()) {
-            System.out.println("Quene is Empty");
-        } else {
-            for (i = front; i <= rear; i++) {
-                System.out.print(items[i] + "  ");
-            }
-        }
-    }
-}
+		Queue<Integer> q = new LinkedList<Integer>();
+		q.add(s);
 
-public class BFS {
+		while (q.size() != 0){
+			s = q.poll();
+			System.out.println(s + " ");
+			visited[s] = true;
 
-    static void BreadthFirstSearch(int vertex , int adjMat[][] , int n)
-    {
-        Quene q = new Quene();
-        int visited[] = new int[7];
-        System.out.print(vertex + " ");
-        visited[vertex] = 1;
-        q.enQuene(vertex);
-        while (!q.isEmpty())
-        {
-            int u = q.deQuene();
-            for(int v=1; v<7; v++)
-            {
-                if(adjMat[u][v] == 1 && visited[v] == 0)
-                {
-                    System.out.print(v + " ");
-                    visited[v] = 1;
-                    q.enQuene(v);
-                }
-            }
-        }
+			Iterator<Integer> i = adj[s].iterator();
+			while (i.hasNext()){
+				int n = i.next();
+				if(!visited[n]){
+					q.add(n);
+					visited[n] = true;
+				}
+			}
+			
+		}
+	}
 
-    }
-    public static void main(String[] args) {
-        int [][] adjacencyMatrix = new int [] [] {
-            {0 , 0 , 0 , 0 , 0 , 0 , 0},
-            {0 , 0 , 1 , 1 , 0 , 0 , 1},
-            {0 , 1 , 0 , 0 , 1 , 0 , 1},
-            {0 , 1 , 0 , 0 , 1 , 1 , 0},
-            {0 , 0 , 1 , 1 , 0 , 1 , 0},
-            {0 , 0 , 0 , 1 , 1 , 0 , 0},
-            {0 , 1 , 1 , 0 , 0 , 0 , 0}
-        } ;
-        BreadthFirstSearch(3 , adjacencyMatrix , 7);
-    }
+	public static void main(String[] args) {
+		Graph g = new Graph(4);
+		g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 3);
+		g.BFS(2);
+	}
 }
