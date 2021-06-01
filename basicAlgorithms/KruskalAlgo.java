@@ -58,7 +58,6 @@ public class KruskalAlgo {
                     v = A[1][j];
                     k = j;
                 }
-                System.out.println(E);
             }
             if(find(u , set) != find(v , set))  // check for cycle 
             {
