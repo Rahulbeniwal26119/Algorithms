@@ -1,12 +1,11 @@
-package basicAlgorithms.sorting;
-import java.util.Arrays;
-import java.util.Collections;
+package sorting;
 
 public class BubbleSort{
 				
 		public static void bubbleSort(int array[]){
 				int length = array.length;
 				boolean isSorted;
+				boolean isAlreadySorted=true;
 
 				for(var i=0; i < length-1; i++)
 				{
@@ -20,10 +19,18 @@ public class BubbleSort{
 										array[j] = array[j+1];
 										array[j+1] = temp;
 										isSorted = false;
+										isAlreadySorted = false;
 								}
 						}
+						if(isAlreadySorted)
+						{
+							System.out.println("Already Sorted");
+							break;
+						}
 						if(isSorted)
-								break;
+						{
+							break;
+						}
 				}
 		}
 }
