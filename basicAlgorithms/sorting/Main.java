@@ -5,7 +5,8 @@ public class Main{
 				int array[] = {1,1,2,3,4,5,6};
 				// BubbleSort.bubbleSort(array);
 				// Insertion is best choice for linked list
-				InsertionSort.insertionSort(array);
+				// InsertionSort.insertionSort(array);
+				SelectionSort.selectionSort(array);
 				for(var ele : array)
 						System.out.println(ele);
 		}
