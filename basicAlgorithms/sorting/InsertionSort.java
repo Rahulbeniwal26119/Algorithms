@@ -1,4 +1,5 @@
 package sorting;
+// Two way merge sort 
 public class InsertionSort{
 
 		protected static void insertionSort(int arr[]){
