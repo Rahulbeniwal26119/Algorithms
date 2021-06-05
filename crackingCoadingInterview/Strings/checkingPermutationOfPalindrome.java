@@ -3,13 +3,13 @@
 // situated at the center of the string
 public class checkingPermutationOfPalindrome
 {
-	boolean isPermutationOfPalindrome(String phrase)
+	static boolean isPermutationOfPalindrome(String phrase)
 	{
 		int table[] = charFrequencyTable(phrase);
 		return checkMaxOneOdd(table);
 	}
 
-	boolean checkMaxOneOdd(int [] table)
+	static boolean checkMaxOneOdd(int [] table)
 	{
 		boolean foundOdd = false;
 		for(int count : table)
@@ -25,7 +25,7 @@ public class checkingPermutationOfPalindrome
 
 	}
 	// only for small character 
-	int getCharNumber(Character c)
+	static int getCharNumber(Character c)
 	{
 		int a = Character.getNumericValue('a');
 		int z = Character.getNumericValue('z');
@@ -35,7 +35,7 @@ public class checkingPermutationOfPalindrome
 		return -1;
 	}
 
-	int[] buildCharFrequencyTable(String phrase)
+	static int[] buildCharFrequencyTable(String phrase)
 	{
 		int []table = new int[Character.getNumericValue('z') - Character.getNumericValue('a') + 1 ];
 		for(char c : phrase.toCharArray())
@@ -47,6 +47,54 @@ public class checkingPermutationOfPalindrome
 		return table;
 	}
 
-}
+	static boolean isPermutationMethod2(String s){
+			int countOdd = 0;
+			for(char c : s.toCharArray()){
+					int x = getCharacterNumber(c);
+					if(x != -1)
+					{
+							table[x]++;
+							if(table[x] % 2 == 1)
+								   oddCount++;
+							else 
+									oddCount--;
+					}
+			}
+			return oddCount <= 1;
+	}
 
-// b a dfjfdasj fasfdjadfslkjfdasjkfjds 
+	boolean isPermutationMethod3(String s){
+			int bitVector = createBitVector(s);
+			return bitVector == 0 || checkExactlyOneBitSet(bitVector);
+	}
+
+	int createBitVector(String s){
+			int bitVector = 0;
+			for(char c : s.toCharArray())
+			{
+					int x = getCharNumber(c);
+					bitVector = toggle(bitVector, x);
+			}
+			return bitVector;
+	}
+
+	int toggle(int bitVector, int index){
+			if(index < 0)
+					return bitVector;
+			int mask = 1 << index;
+			if((bitVector & mask) == 0)
+					bitVector |= mask;
+			else 
+					bitVector &= ~mask;
+	}
+
+	static boolean checkExactlyOneBitSet(int bitVector){
+			return (bitVector & (bitVector - 1)) == 0;
+	}
+
+
+
+
+
+
+
