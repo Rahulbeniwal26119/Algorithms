@@ -1,7 +1,8 @@
 package sorting;
+// Two way merge sort 
 public class IterativeMergeSort{
 
-		static void merge(int A[] ,int low , int mid, int high){
+		public static void merge(int A[] ,int low , int mid, int high){
 				int l1 = mid - low + 1;
 				int l2 = high - mid ;
 				int arr1[] = new int[l1];
@@ -17,7 +18,7 @@ public class IterativeMergeSort{
 
 				int i=0, j =0, k=low; 
 				for( ; i < l1 && j < l2;){
-						if(arr1[i] < arr2[j])
+						if(arr1[i] <= arr2[j])
 								A[k++] = arr1[i++];
 						else
 								A[k++] = arr2[j++];
