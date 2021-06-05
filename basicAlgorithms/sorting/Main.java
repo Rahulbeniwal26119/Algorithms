@@ -7,7 +7,8 @@ public class Main{
 				// Insertion is best choice for linked list
 				// InsertionSort.insertionSort(array);
 				// SelectionSort.selectionSort(array);
-				   IterativeMergeSort.iterativeMergeSort(array);
+				// IterativeMergeSort.iterativeMergeSort(array); 
+				   RecursiveMergeSort.recursiveMergeSort(array, 0 , array.length -1);
 				// QuickSort.quickSort(array, 0, array.length-1);
 				for(var ele : array)
 						System.out.println(ele);
