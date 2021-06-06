@@ -8,8 +8,9 @@ public class Main{
 				// InsertionSort.insertionSort(array);
 				// SelectionSort.selectionSort(array);
 				// IterativeMergeSort.iterativeMergeSort(array); 
-				   RecursiveMergeSort.recursiveMergeSort(array, 0 , array.length -1);
+				// RecursiveMergeSort.recursiveMergeSort(array, 0 , array.length -1);
 				// QuickSort.quickSort(array, 0, array.length-1);
+				   CountSort.countSort(array);
 				for(var ele : array)
 						System.out.println(ele);
 		}
