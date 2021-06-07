@@ -13,7 +13,8 @@ public class Main {
     // QuickSort.quickSort(array, 0, array.length-1);
     // CountSort.countSort(array);
     // RadixSortLL.radixSortLL(array);
-       BucketSort.bucketSort(array);
+    // BucketSort.bucketSort(array);
+	   ShellSort.shellSort(array);
     for (var ele : array) System.out.println(ele);
   }
 }
