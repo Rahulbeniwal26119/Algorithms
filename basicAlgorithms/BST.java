@@ -102,6 +102,7 @@ public class BST {
                 inOrderTraversal(root.getLeft());
 
             System.out.println(root.getValue());
+
             if (root.getRight() != null)
                 inOrderTraversal(root.getRight());
             // these ifs will reduce the function call to half for a complete binary tree
