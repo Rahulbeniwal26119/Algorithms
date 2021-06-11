@@ -14,6 +14,6 @@ public class TowerOfHanoi
 
         public static void main(String []args)
         {
-                toh(3 , 'S' ,  'M' , 'D');
+                toh(2 , 'S' ,  'M' , 'D');
         }
 }
