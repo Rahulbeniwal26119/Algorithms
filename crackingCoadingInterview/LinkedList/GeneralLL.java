@@ -36,14 +36,38 @@ class GeneralLL extends LinkedList{
 				return true;
 		}
 
+		Node partition(Node n, int x){
+			Node head = null;
+			Node tail = null;
+			
+			while(n != null){
+				Node next = n.next;
+				if(n.data < x){
+					n.next = head;
+					head = n;
+				}
+				else{
+					tail.next = n;
+					tail = n;
+				}
+				n = next;
+			}
+			tail.next = null;
+			return head;
+		}
 
 		public static void main(String []args){
 				GeneralLL ll = new GeneralLL(10);
+				GeneralLL ld = new GeneralLL(10);
+				ll.appendToLast(15);
+				ll.appendToLast(9);
+				ll.appendToLast(8);
+				ll.appendToLast(7);
 				ll.appendToLast(12);
 				ll.appendToLast(13);
 				ll.appendToLast(14);
-				ll.appendToLast(15);
-		    	ll.deleteNode(ll.head.next.next);
+				ld.head = ll.partition(ll.head,12);
+				//ll.printLLReversed(ll.head);
 				ll.printLLReversed(ll.head);
 		}
 }
