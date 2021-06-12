@@ -7,6 +7,23 @@ public int printKthToLast(Node head, int k){
         return index;
 }
 
+Node nthToLastIterative(Node head, int k){
+        Node p1 = head;
+        Node p2 = head;
+
+        for(int i=0; i < k; i++){
+                        if(p1 == null) return null;
+                        p1 = p1.next;
+        }
+
+        while(p1 != null){
+                        p1 = p1.next;
+                        p2 = p2.next;
+        }
+        return p2;
+}
+
+
 class Index{
         public int value=0;
 }

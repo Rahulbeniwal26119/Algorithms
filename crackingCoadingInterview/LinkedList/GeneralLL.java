@@ -21,31 +21,20 @@ class GeneralLL extends LinkedList{
 
 		public void printLLReversed(Node head){
 				if(head!=null){
-						printLLReversed(head.next);
 						System.out.println(head.data);
+						printLLReversed(head.next);
 				}
 		}
 
-		public Node kthToLast(Node node, int k){
-				Index idx = new Index();
-				return kthToLast(head, k , idx);
+
+		boolean deleteNode(Node n){
+				if(n == null || n.next == null)
+						return false;
+				Node next = n.next;
+				n.data = next.data;
+				n.next = next.next;
+				return true;
 		}
-
-		Node kthToLast(Node head, int k, Index  idx){
-				if(head == null)
-						return null;
-				Node node = kthToLast(head.next, k , idx);
-				if(node == null)
-						System.out.println("null");
-				else 
-						System.out.println(node.data);
-
-				idx.value+=1;
-				if(idx.value == k)
-						return head;
-				return node;
-		}
-
 
 
 		public static void main(String []args){
@@ -54,7 +43,8 @@ class GeneralLL extends LinkedList{
 				ll.appendToLast(13);
 				ll.appendToLast(14);
 				ll.appendToLast(15);
-				System.out.println(ll.kthToLast(ll.head, 3).data);
+		    	ll.deleteNode(ll.head.next.next);
+				ll.printLLReversed(ll.head);
 		}
 }
 
