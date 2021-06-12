@@ -1,4 +1,9 @@
 import java.util.HashSet;
+class Index{
+		public int value=0;
+}
+
+
 class GeneralLL extends LinkedList{
 
 		 GeneralLL(int d){
@@ -21,6 +26,27 @@ class GeneralLL extends LinkedList{
 				}
 		}
 
+		public Node kthToLast(Node node, int k){
+				Index idx = new Index();
+				return kthToLast(head, k , idx);
+		}
+
+		Node kthToLast(Node head, int k, Index  idx){
+				if(head == null)
+						return null;
+				Node node = kthToLast(head.next, k , idx);
+				if(node == null)
+						System.out.println("null");
+				else 
+						System.out.println(node.data);
+
+				idx.value+=1;
+				if(idx.value == k)
+						return head;
+				return node;
+		}
+
+
 
 		public static void main(String []args){
 				GeneralLL ll = new GeneralLL(10);
@@ -28,10 +54,7 @@ class GeneralLL extends LinkedList{
 				ll.appendToLast(13);
 				ll.appendToLast(14);
 				ll.appendToLast(15);
-				ll.printLL(ll.head);
-				ll.printKthToLast(ll.head,3);
-				ll.printLL(ll.head);
-				ll.printLLReversed(ll.head);
+				System.out.println(ll.kthToLast(ll.head, 3).data);
 		}
 }
 
