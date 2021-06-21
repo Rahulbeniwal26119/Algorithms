@@ -10,11 +10,12 @@ public class Main {
     // SelectionSort.selectionSort(array);
     // IterativeMergeSort.iterativeMergeSort(array);
     // RecursiveMergeSort.recursiveMergeSort(array, 0 , array.length -1);
-    // QuickSort.quickSort(array, 0, array.length-1);
+     QuickSort.quickSort(array, 0, array.length-1);
     // CountSort.countSort(array);
     // RadixSortLL.radixSortLL(array);
     // BucketSort.bucketSort(array);
-	   ShellSort.shellSort(array);
+	  //`:wq
+	  //ShellSort.shellSort(array);
     for (var ele : array) System.out.println(ele);
   }
 }
