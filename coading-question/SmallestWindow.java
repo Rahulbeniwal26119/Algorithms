@@ -38,7 +38,7 @@ public class SmallestWindow{
 						{
 								max_seen = arr[i];
 						}
-				}
+				
 				for(int i = length - 1; i >=0; i--){
 						if(arr[i] < min_seen)
 								min_seen = arr[i];
