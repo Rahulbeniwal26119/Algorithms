@@ -39,11 +39,27 @@ public class AnagramInString{
 				}
 				return oddCount <= 1;
 		}
-				static public void main(String []args){
-				String s = "abaa";
-				String p = "baaaa";
-				System.out.println(isAnagram(s,p));
-				System.out.println( isPlaindrome(s));
+
+		public static ArrayList<Integer> isAnagramIndices(String s, String word){
+				ArrayList<Integer> result = new ArrayList<>();
+				for(int i=0; i < s.length() - word.length(); i++){
+				System.out.println("in loop");
+						String window = s.substring(i, s.length());
+						System.out.println(window);
+						System.out.println(isAnagram(window, word));
+						if(isAnagram(window, word))
+										result.add(i);
+				}
+				return result;
+		}
+
+
+		static public void main(String []args){
+				String s = "abbaaababababa";
+				String p = "ab";
+				ArrayList<Integer> result = isAnagramIndices(s,p);
+				for(var i : result)
+						System.out.println(i);
 		}
 }
 
