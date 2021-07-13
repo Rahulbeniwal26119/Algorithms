@@ -1,5 +1,6 @@
-class FixedMultiStack{
 
+
+class FixedMultiStack{
 		private int stackCount = 3;
 		private int stackCapacity;
 		private int [] values;
@@ -10,17 +11,17 @@ class FixedMultiStack{
 		public FixedMultiStack(int stackSize){
 				stackCapacity = stackSize;
 				values = new int[stackSize * stackCount];
-				sizes = new int[stackCount];
+				size = new int[stackCount];
 		}
 
-		public void push(int stackNum, int value){
+		public void push(int stackNum, int value) throws FullStackException{
 				if(isFull(stackNum))
 						throw new FullStackException();
-				sizes[stackNum]++;
-				values[stackOfTop(stackNum)] = value;
+				size[stackNum]++;
+				values[indexOfTop(stackNum)] = value;
 		}
 
-		public int pop(int stackNum){
+		public int pop(int stackNum) throws EmptyStackException{
 				if(isEmpty(stackNum))
 						throw new EmptyStackException();
 				int topIndex = indexOfTop(stackNum);
@@ -30,24 +31,25 @@ class FixedMultiStack{
 				return value;
 		}
 
-		public int peek(int stackNum){
+		public int peek(int stackNum) throws EmptyStackException{
 				if(isEmpty(stackNum))
 						throw new EmptyStackException();
 				return values[indexOfTop(stackNum)];
 		}
 
 		public boolean isEmpty(int stackNum){
-				return sizes[stackNum] ==0;
+				return size[stackNum] ==0;
 		}
 
 		public boolean isFull(int stackNum){
-				return sizes[stackNum] == stackCapacity;
+				return size[stackNum] == stackCapacity;
 		}
 
 		private int indexOfTop(int stackNum){
 				int offset = stackNum * stackCapacity;
-				int size = size[stackNum];
-				return offset + size - 1;
+				int s = size[stackNum];
+				return offset + s - 1;
 		}
+}
 
 
